@@ -1,0 +1,18 @@
+[
+    {
+        "code": "A0001",
+        "description": null,
+        "quantity": null,
+        "price": 0,
+        "discount": 0,
+        "availableQuantity": 0
+    },
+    {
+        "code": "B0002",
+        "description": null,
+        "quantity": null,
+        "price": 0,
+        "discount": 0,
+        "availableQuantity": 0
+    }
+]

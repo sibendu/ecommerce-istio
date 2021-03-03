@@ -1,0 +1,122 @@
+##################################################################################################
+# ERP-A service
+##################################################################################################
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: erpa
+  labels:
+    app: erpa
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: erpa
+  template:
+    metadata:
+      labels:
+        app: erpa
+    spec:
+      containers:
+      - name: erpa
+        image: sibendudas/erpa
+        ports:
+        - containerPort: 8091
+          name: svc-port
+          protocol: TCP
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: erpa
+spec:
+  ports:
+  - name: svc-port
+    port: 8091
+    targetPort: 8091
+  selector:
+    app: erpa
+---
+##################################################################################################
+# ERP-B service
+##################################################################################################
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: erpb
+  labels:
+    app: erpb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: erpb
+  template:
+    metadata:
+      labels:
+        app: erpb
+    spec:
+      containers:
+      - name: erpb
+        image: sibendudas/erpb
+        ports:
+        - containerPort: 8092
+          name: svc-port
+          protocol: TCP
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: erpb
+spec:
+  ports:
+  - name: svc-port
+    port: 8092
+    targetPort: 8092
+  selector:
+    app: erpb
+---
+##################################################################################################
+# Product service
+##################################################################################################
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: product
+  labels:
+    app: product
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: product
+  template:
+    metadata:
+      labels:
+        app: product
+    spec:
+      containers:
+      - name: product
+        image: sibendudas/product
+        ports:
+        - containerPort: 8080
+          name: svc-port
+          protocol: TCP
+        env:
+        - name: ERP_A_URL
+          value: http://erpa:8091/product/
+        - name: ERP_B_URL
+          value: http://erpb:8092/product/
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: product
+spec:
+  ports:
+  - name: svc-port
+    port: 8080
+    targetPort: 8080
+  selector:
+    app: product
+---
