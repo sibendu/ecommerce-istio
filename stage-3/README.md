@@ -1,4 +1,4 @@
-# Stage-2
+# Stage-3
 
 1. For Deployment, add label - version: v1
 
@@ -31,7 +31,11 @@ Traffic split verified in Kiali
 
 Also verified in Grafana -> istio Service Dashboard
 
-[Go to Real Cool Heading section](#./screenshots/grafana-traffic-split.jpeg)
+
+
+
+
+ 
 
 
  
