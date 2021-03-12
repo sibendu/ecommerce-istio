@@ -31,7 +31,7 @@ Traffic split verified in Kiali
 
 Also verified in Grafana -> istio Service Dashboard
 
-[Go to Real Cool Heading section](screenshots/grafana-traffic-split.jpeg)
+![Traffic Split in Grafana](screenshots/grafana-traffic-split.jpeg)
 
 
  
