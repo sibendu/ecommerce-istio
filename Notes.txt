@@ -1,5 +1,3 @@
-chng
-
 kubectl create namespace ecommerce
 
 kubectl port-forward -n ecommerce  productservice-66c944787-vsj6l  8085:8080
