@@ -1,18 +1,22 @@
-# ecommerce-istio
+# Stage-1
+
+
 
 ## Pre-Requisite
 
 JDK (used 1.8)
 Gradle (used 6.7.1 )
-Install Docker-Desktop. Enable Kubernetes (Adjust settings). 
+Install Docker-Desktop. Enable Kubernetes (Adjust settings) 
 
 
 ## To run locally
 
 Use script deploy-docker-local.bat
+
 API accessible @ http://localhost:8080/product
 
 Test using data.json - 
+
 curl -x POST -H "Content-Type: applcation/json" -d @data.json http://localhost:8080/product
 
   
