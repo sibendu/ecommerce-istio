@@ -36,7 +36,7 @@ Traffic split verified in Kiali graph -> traffic is diected to erpa, erpb-v2 and
 
 ![Traffic Split in Kiali](screenshots/kiali-traffic-split.jpeg)
 
-![Traffic Split in Grafana](screenshots/grafana-traffic-split.jpeg)
+![Traffic Split in Grafana](screenshots/grafana-gRPC-faster.jpeg)
 
 
  
