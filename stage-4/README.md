@@ -1,35 +1,38 @@
-# Stage-2
+# Stage-4
 
-1. For Deployment, add label - version: v1
+## Objective
 
-2. For services, add metadata
-  labels:
-    app: erpa
-    service: erpa
+Test gRPC. We add a new ERP C , which exposes gRPC API for product details.
 
-3. Add Deployment erpb-v2 . Note only Deployment name is erpb-v2. But label is still app: erpb. 
+So our Product API now combines call across 3 kernels - erp-A (http), erp-B-v2 (http) and erp-C (gRPC) 
 
-Since Service erpb has selector app: erpb, k8s should start routing to both versions now (round robin).
+## Steps
 
-4. Create gateway - ecomm-gateway.yaml  ; now accessible via gateway , but still round robin
+1. Implement erp-C : a gRPC server implemented with gradle protobuf integration 
+ 
+- Check gRPC sevice definition under .\erp-C\src\main\proto\product.proto
+- Run "gradle clean build" -> generates gRPC Java code under build/generated/source/proto/main/grpc and build/generated/source/proto/main/
+
+2. Extend Product API (under ./product).
+  - It makes gRPC call (client) to erp-C -> check code .\product\src\main\java\com\example\ProductService.java & ERPC_Client.java
+
+3. ecomm.yaml -> Added erp-C (Deployment & Service)
+
+4. ecomm-destinationrules.yaml -> Add erpc
+
+4. ecomm-virtualservice.yaml -> Add erpc
 
 5. Create destination rules - ecomm-destinationrules.yaml ; still round robin
 
 6. Create all virtual services - ecomm-virtualservice.yaml
+- Note:  erp-B v1 is no longer used, the VirtualService uses v2  (product codes maintained in MySQL DB)
 
-Now it should go to ERP-B (v1, and not v2) 
+7. To verify gRPC performance, make calls to product API , looking up same number of product codes from erp-A (product codes "A000*")  and erp-C (product codes "D0000*")
+- Check Grafana service dashboard results for erpa and erpc
+- 
+### Verification
 
-7. Now switch to ERP-B-v2; ecomm-virtualservice-erpb-v2.yaml
-
-Now it should go to only v2
-
-8. ecomm-virtualservice-erpb-v1-v2.yaml
-
-Traffic split roughly 50-50 between ERP-B v1 and v2
-
-Traffic split verified in Kiali
-
-Also verified in Grafana -> istio Service Dashboard
+Traffic split verified in Kiali graph -> traffic is diected to erpa, erpb-v2 and erp-C
 
 ![Traffic Split in Kiali](screenshots/kiali-traffic-split.jpeg)
 
