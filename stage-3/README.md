@@ -1,35 +1,27 @@
-# Stage-2
+# Stage-3
 
-1. For Deployment, add label - version: v1
+## Objective
 
-2. For services, add metadata
-  labels:
-    app: erpa
-    service: erpa
+Upgrade ERB-B v2 to use a MySQL database
 
-3. Add Deployment erpb-v2 . Note only Deployment name is erpb-v2. But label is still app: erpb. 
+More product details are maintained in the MySQL database - B0001 to B004 and C0001 to C0008 (check script .\mysqldb-erp-B\setup.sql)
 
-Since Service erpb has selector app: erpb, k8s should start routing to both versions now (round robin).
+## Steps
 
-4. Create gateway - ecomm-gateway.yaml  ; now accessible via gateway , but still round robin
+1. Added MySQL DB - using mariadb:latest ; check mysqldb-erp-B 
 
-5. Create destination rules - ecomm-destinationrules.yaml ; still round robin
+2. ecoom.yaml -> Added deployment and service mysqldberpb
 
-6. Create all virtual services - ecomm-virtualservice.yaml
+3. ecomm-destinationrules.yaml -> Added destination rule mysqldberpb
 
-Now it should go to ERP-B (v1, and not v2) 
+4. ecomm-virtualservice.yaml -> Add Virtual Service mysqldberpb 
 
-7. Now switch to ERP-B-v2; ecomm-virtualservice-erpb-v2.yaml
+6. As before in stage-2, we can test with only v2 (ecomm-virtualservice-erpb-v2.yaml), or traffic split between v1 and v2 (ecomm-virtualservice-erpb-v1-v2.yaml)
 
-Now it should go to only v2
 
-8. ecomm-virtualservice-erpb-v1-v2.yaml
+### Verification 
 
-Traffic split roughly 50-50 between ERP-B v1 and v2
-
-Traffic split verified in Kiali
-
-Also verified in Grafana -> istio Service Dashboard
+Traffic split verified in Kiali & Grafana
 
 ![Traffic Split in Kiali](screenshots/kiali-traffic-split.jpeg)
 
