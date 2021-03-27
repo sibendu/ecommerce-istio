@@ -1,0 +1,65 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: product
+spec:
+  hosts:
+  - product
+  http:
+  - route:
+    - destination:
+        host: product
+        subset: v1
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: erpa
+spec:
+  hosts:
+  - erpa
+  http:
+  - route:
+    - destination:
+        host: erpa
+        subset: v1
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: erpb
+spec:
+  hosts:
+  - erpb
+  http:
+  - route:
+    - destination:
+        host: erpb
+        subset: v2
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: erpc
+spec:
+  hosts:
+  - erpc
+  http:
+  - route:
+    - destination:
+        host: erpc
+        subset: v1
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: mysqldberpb
+spec:
+  hosts:
+  - mysqldberpb
+  http:
+  - route:
+    - destination:
+        host: mysqldberpb
+        subset: v1
+---

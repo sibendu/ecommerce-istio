@@ -37,3 +37,16 @@ spec:
         host: erpb
         subset: v1
 ---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: mysqldberpb
+spec:
+  hosts:
+  - mysqldberpb
+  http:
+  - route:
+    - destination:
+        host: mysqldberpb
+        subset: v1
+---

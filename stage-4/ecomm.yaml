@@ -1,0 +1,270 @@
+##################################################################################################
+# MYSQL ERP-B service
+##################################################################################################
+kind: Service
+apiVersion: v1
+metadata:
+  name: mysqldberpb
+  labels:
+    app: mysqldberpb
+    service: mysqldberpb
+spec:
+  ports:
+  - name: svc-port
+    port: 3306
+    targetPort: 3306
+  selector:
+    app: mysqldberpb
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysqldberpb
+  labels:
+    app: mysqldberpb
+    version: v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysqldberpb
+      version: v1 
+  template:
+    metadata:
+      labels:
+        app: mysqldberpb
+        version: v1
+    spec:
+      containers:
+      - name: mysqldberpb
+        image: sibendudas/mysqldberpb
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 3306
+          name: svc-port
+          protocol: TCP
+---
+##################################################################################################
+# ERP-A service
+##################################################################################################
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: erpa
+  labels:
+    app: erpa
+    version: v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: erpa
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: erpa
+        version: v1
+    spec:
+      containers:
+      - name: erpa
+        image: sibendudas/erpa
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8091
+          name: svc-port
+          protocol: TCP
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: erpa
+  labels:
+    app: erpa
+    service: erpa
+spec:
+  ports:
+  - name: svc-port
+    port: 8091
+    targetPort: 8091
+  selector:
+    app: erpa
+---
+##################################################################################################
+# ERP-B service
+##################################################################################################
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: erpb
+  labels:
+    app: erpb
+    version: v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: erpb
+      version: v1 
+  template:
+    metadata:
+      labels:
+        app: erpb
+        version: v1
+    spec:
+      containers:
+      - name: erpb
+        image: sibendudas/erpb
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8092
+          name: svc-port
+          protocol: TCP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: erpb-v2
+  labels:
+    app: erpb
+    version: v2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: erpb
+      version: v2 
+  template:
+    metadata:
+      labels:
+        app: erpb
+        version: v2
+    spec:
+      containers:
+      - name: erpbv2
+        image: sibendudas/erpbv2
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8092
+          name: svc-port
+          protocol: TCP
+        env:
+        - name: MYSQL_HOST
+          value: mysqldberpb
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: erpb
+  labels:
+    app: erpb
+    service: erpb
+spec:
+  ports:
+  - name: svc-port
+    port: 8092
+    targetPort: 8092
+  selector:
+    app: erpb
+---
+##################################################################################################
+# ERP-C service
+##################################################################################################
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: erpc
+  labels:
+    app: erpc
+    version: v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: erpc
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: erpc
+        version: v1
+    spec:
+      containers:
+      - name: erpa
+        image: sibendudas/erpc
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8093
+          name: svc-port
+          protocol: TCP
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: erpc
+  labels:
+    app: erpc
+    service: erpc
+spec:
+  ports:
+  - name: svc-port
+    port: 8093
+    targetPort: 8093
+  selector:
+    app: erpc
+---
+##################################################################################################
+# Product service
+##################################################################################################
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: product
+  labels:
+    app: product
+    version: v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: product
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: product
+        version: v1
+    spec:
+      containers:
+      - name: product
+        image: sibendudas/product
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8080
+          name: svc-port
+          protocol: TCP
+        env:
+        - name: ERP_A_URL
+          value: http://erpa:8091/product/
+        - name: ERP_B_URL
+          value: http://erpb:8092/product/
+        - name: ERP_C_HOST
+          value: erpc
+        - name: ERP_C_PORT
+          value: "8093"
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: product
+  labels:
+    app: product
+    service: product
+spec:
+  ports:
+  - name: svc-port
+    port: 8080
+    targetPort: 8080
+  selector:
+    app: product
+---

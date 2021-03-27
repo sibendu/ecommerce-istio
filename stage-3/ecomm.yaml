@@ -1,4 +1,50 @@
 ##################################################################################################
+# MYSQL ERP-B service
+##################################################################################################
+kind: Service
+apiVersion: v1
+metadata:
+  name: mysqldberpb
+  labels:
+    app: mysqldberpb
+    service: mysqldberpb
+spec:
+  ports:
+  - name: svc-port
+    port: 3306
+    targetPort: 3306
+  selector:
+    app: mysqldberpb
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysqldberpb
+  labels:
+    app: mysqldberpb
+    version: v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysqldberpb
+      version: v1 
+  template:
+    metadata:
+      labels:
+        app: mysqldberpb
+        version: v1
+    spec:
+      containers:
+      - name: mysqldberpb
+        image: sibendudas/mysqldberpb
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 3306
+          name: svc-port
+          protocol: TCP
+---
+##################################################################################################
 # ERP-A service
 ##################################################################################################
 apiVersion: apps/v1
@@ -95,13 +141,16 @@ spec:
         version: v2
     spec:
       containers:
-      - name: erpb
+      - name: erpbv2
         image: sibendudas/erpbv2
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8092
           name: svc-port
           protocol: TCP
+        env:
+        - name: MYSQL_HOST
+          value: mysqldberpb
 ---
 kind: Service
 apiVersion: v1

@@ -13,7 +13,7 @@ Since Service erpb has selector app: erpb, k8s should start routing to both vers
 
 4. Create gateway - ecomm-gateway.yaml  ; now accessible via gateway , but still round robin
 
-5. Create destinatin rules - ecomm-destinationrules.yaml ; still round robin
+5. Create destination rules - ecomm-destinationrules.yaml ; still round robin
 
 6. Create all virtual services - ecomm-virtualservice.yaml
 

@@ -1,0 +1,18 @@
+[
+    { "code": "A0001","description": null,"quantity": null,"price": 0,"discount": 0,"availableQuantity": 0},
+    { "code": "A0002","description": null,"quantity": null,"price": 0,"discount": 0,"availableQuantity": 0},
+    { "code": "A0003","description": null,"quantity": null,"price": 0,"discount": 0,"availableQuantity": 0},
+    { "code": "A0005","description": null,"quantity": null,"price": 0,"discount": 0,"availableQuantity": 0},
+    { "code": "A00010","description": null,"quantity": null,"price": 0,"discount": 0,"availableQuantity": 0},
+    { "code": "B0003","description": null,"quantity": null,"price": 0,"discount": 0,"availableQuantity": 0},
+    { "code": "B0004","description": null,"quantity": null,"price": 0,"discount": 0,"availableQuantity": 0},
+    { "code": "B0005","description": null,"quantity": null,"price": 0,"discount": 0,"availableQuantity": 0},
+    { "code": "C0001","description": null,"quantity": null,"price": 0,"discount": 0,"availableQuantity": 0},
+    { "code": "C0003","description": null,"quantity": null,"price": 0,"discount": 0,"availableQuantity": 0},
+    { "code": "C0007","description": null,"quantity": null,"price": 0,"discount": 0,"availableQuantity": 0},
+    { "code": "D00001","description": null,"quantity": null,"price": 0,"discount": 0,"availableQuantity": 0},
+    { "code": "D00002","description": null,"quantity": null,"price": 0,"discount": 0,"availableQuantity": 0},
+    { "code": "D00005","description": null,"quantity": null,"price": 0,"discount": 0,"availableQuantity": 0},
+    { "code": "D00009","description": null,"quantity": null,"price": 0,"discount": 0,"availableQuantity": 0},
+    { "code": "D000015","description": null,"quantity": null,"price": 0,"discount": 0,"availableQuantity": 0}
+]

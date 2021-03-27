@@ -1,0 +1,68 @@
+plugins {
+    id 'application'
+    id 'com.google.protobuf' version '0.8.8'
+    id 'idea'
+}
+
+repositories {
+    maven { // The google mirror is less flaky than mavenCentral()
+        url "https://maven-central.storage-download.googleapis.com/repos/central/data/" }
+    mavenLocal()
+}
+
+group = 'com.sd'
+version = '1.0'
+sourceCompatibility = '1.8'
+
+def grpcVersion = '1.20.0' // CURRENT_GRPC_VERSION
+def protobufVersion = '3.7.1'
+def protocVersion = protobufVersion 
+
+
+jar {
+    manifest {
+        attributes "Main-Class": "sd.example.ERPCServer"
+    }
+    from {
+	    configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+  	}
+}
+
+
+dependencies {
+    implementation "io.grpc:grpc-protobuf:${grpcVersion}"
+    implementation "io.grpc:grpc-stub:${grpcVersion}"
+    compileOnly "javax.annotation:javax.annotation-api:1.2"
+
+    // examples/advanced need this for JsonFormat
+    implementation "com.google.protobuf:protobuf-java-util:${protobufVersion}"
+
+    runtimeOnly "io.grpc:grpc-netty-shaded:${grpcVersion}"
+
+    testImplementation "io.grpc:grpc-testing:${grpcVersion}"
+    testImplementation "junit:junit:4.12"
+    testImplementation "org.mockito:mockito-core:2.25.1"
+}
+
+
+protobuf {
+    protoc { artifact = "com.google.protobuf:protoc:${protocVersion}" }
+    plugins {
+        grpc { artifact = "io.grpc:protoc-gen-grpc-java:${grpcVersion}" }
+    }
+    generateProtoTasks {
+        all()*.plugins { grpc {} }
+    }
+}
+
+// Inform IDEs like IntelliJ IDEA, Eclipse or NetBeans about the generated code.
+sourceSets {
+    main {
+        java {
+            srcDirs 'build/generated/source/proto/main/grpc'
+            srcDirs 'build/generated/source/proto/main/java'
+        }
+    }
+}
+
+

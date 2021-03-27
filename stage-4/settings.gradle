@@ -1,0 +1,5 @@
+rootProject.name = 'ecommerce'
+include 'product'
+include 'erp-A'
+include 'erp-B'
+include 'erp-B-v2'

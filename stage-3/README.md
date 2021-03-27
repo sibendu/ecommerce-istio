@@ -1,4 +1,4 @@
-# Stage-3
+# Stage-2
 
 1. For Deployment, add label - version: v1
 
@@ -13,7 +13,7 @@ Since Service erpb has selector app: erpb, k8s should start routing to both vers
 
 4. Create gateway - ecomm-gateway.yaml  ; now accessible via gateway , but still round robin
 
-5. Create destinatin rules - ecomm-destinationrules.yaml ; still round robin
+5. Create destination rules - ecomm-destinationrules.yaml ; still round robin
 
 6. Create all virtual services - ecomm-virtualservice.yaml
 
@@ -31,11 +31,9 @@ Traffic split verified in Kiali
 
 Also verified in Grafana -> istio Service Dashboard
 
+![Traffic Split in Kiali](screenshots/kiali-traffic-split.jpeg)
 
-
-
-
- 
+![Traffic Split in Grafana](screenshots/grafana-traffic-split.jpeg)
 
 
  
