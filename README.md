@@ -3,8 +3,9 @@
 
 ## Pre-Requisite
 
-JDK (used 1.8)
+1. JDK (used 1.8)
 
-Gradle (used 6.7.1 )
+2. Gradle (used 6.7.1 )
 
-Install Docker-Desktop. Enable Kubernetes (Adjust settings) 
+3. Install Docker-Desktop.  Used Docker Engine - Community Version:           20.10.5
+   - Enable Kubernetes. Adjust settings (developd with setting CPUs=4; Memory=8GB; Swap:2GB)
