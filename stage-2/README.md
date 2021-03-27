@@ -1,5 +1,13 @@
 # Stage-2
 
+## Objective
+
+- Enable Istio 
+
+- Add v2 of service for ERP-B. This supports more product codes - B0001 to B0006  (v1 had only B0001-B0003)
+
+## Steps
+
 1. For Deployment, add label - version: v1
 
 2. For services, add metadata
