@@ -36,5 +36,5 @@ curl -x POST -H "Content-Type: applcation/json" -d @data.json http://localhost:8
 
 kubectl apply -f ecomm.yaml
 
-Use port-forwarding , or NodePort to test
+Use port-forwarding (or NodePort) for product service to test
 
