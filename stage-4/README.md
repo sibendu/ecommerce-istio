@@ -28,7 +28,7 @@ So our Product API now combines call across 3 kernels - erp-A (http), erp-B-v2 (
 - Note:  erp-B v1 is no longer used, the VirtualService uses v2  (product codes maintained in MySQL DB)
 
 7. To verify gRPC performance, make calls to product API , looking up same number of product codes from erp-A (product codes "A000*")  and erp-C (product codes "D0000*")
-- Check Grafana service dashboard results for erpa and erpc
+- Check Grafana service dashboard results for erpa and erpc (screenshots below), to compare performance of http vs gRPC 
 - 
 ### Verification
 
