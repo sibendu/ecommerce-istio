@@ -36,6 +36,9 @@ Traffic split verified in Kiali graph -> traffic is diected to erpa, erpb-v2 and
 
 ![Traffic Split in Kiali](screenshots/kiali-traffic-split.jpeg)
 
+To compare how API performance improves with gRPC, few calls are made to the Product API (/product). The request had same number of codes for erp-A (A000* series) and erp-C (D000* series) ; in fact tested wit 3 codes for each kernel. 
+As seen in the screenshot, the "Incoming Request Duration" is smaller for erpc, when compared to erpa -> this is reflected in two sets of screenshots (two rounds of executions at time 22:50 and 22:54 respectively)  
+
 ![Traffic Split in Grafana](screenshots/grafana-gRPC-faster.jpeg)
 
 
